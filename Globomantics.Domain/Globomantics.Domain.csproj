@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="XFrame.AggregateEventPublisher" Version="7.0.0" />
+    <PackageReference Include="XFrame.AggregateEventPublisher.Extensions" Version="7.0.0" />
+    <PackageReference Include="XFrame.Aggregates" Version="7.0.3" />
+    <PackageReference Include="XFrame.Aggregates.Commands" Version="7.0.0" />
+    <PackageReference Include="XFrame.Aggregates.Commands.Extensions" Version="7.0.0" />
+    <PackageReference Include="XFrame.Aggregates.EventMetadata.Extentions" Version="7.0.0" />
+    <PackageReference Include="XFrame.Aggregates.Events.Extensions" Version="7.0.0" />
+    <PackageReference Include="XFrame.Aggregates.Queries" Version="7.0.0" />
+    <PackageReference Include="XFrame.Aggregates.Queries.Extensions" Version="7.0.0" />
+    <PackageReference Include="XFrame.AggregateStores" Version="7.0.0" />
+    <PackageReference Include="XFrame.DomainContainers" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DomainModel\" />
+  </ItemGroup>
+
+</Project>
