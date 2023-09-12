@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Globomantics.Persistence.Mappings;
+using Microsoft.EntityFrameworkCore;
 
 namespace Globomantics.Persistence
 {
@@ -10,7 +11,7 @@ namespace Globomantics.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.GlobomanticsModelMap();
+            modelBuilder.GlobomanticsModelMap();
         }
     }
 }
