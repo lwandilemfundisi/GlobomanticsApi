@@ -17,6 +17,8 @@
     <PackageReference Include="XFrame.Aggregates.Queries.Extensions" Version="7.0.0" />
     <PackageReference Include="XFrame.AggregateStores" Version="7.0.0" />
     <PackageReference Include="XFrame.DomainContainers" Version="7.0.0" />
+    <PackageReference Include="XFrame.Specifications" Version="7.0.1" />
+    <PackageReference Include="XFrame.Specifications.Extensions" Version="7.0.0" />
   </ItemGroup>
 
 </Project>
