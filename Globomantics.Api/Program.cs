@@ -8,6 +8,8 @@ using XFrame.Aggregates.Queries;
 using XFrame.AggregateStores;
 using XFrame.Jobs;
 using Globomantics.Domain.Extensions;
+using Globomantics.Persistence;
+using XFrame.Persistence.EFCore.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,7 +34,9 @@ builder.Services.TryAddTransient<IDomainEventPublisher, DomainEventPublisher>();
 builder.Services.TryAddTransient<IDispatchToEventSubscribers, DispatchToEventSubscribers>();
 builder.Services.TryAddSingleton<IDomainEventFactory, DomainEventFactory>();
 
-builder.Services.ConfigureGlobomanticsDomain();
+builder.Services
+    .ConfigureGlobomanticsDomain()
+    .ConfigurePersistence<GlobomanticsContext, GlobomanticsContextProvider>();
 
 var app = builder.Build();
 

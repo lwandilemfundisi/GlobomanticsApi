@@ -19,8 +19,4 @@
     <ProjectReference Include="..\Globomantics.Persistence\Globomantics.Persistence.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>
