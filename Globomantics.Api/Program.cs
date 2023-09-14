@@ -10,6 +10,7 @@ using XFrame.Jobs;
 using Globomantics.Domain.Extensions;
 using Globomantics.Persistence;
 using XFrame.Persistence.EFCore.Extensions;
+using XFrame.Resilience;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,11 @@ builder.Services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.TryAddTransient<ISetup>(r => new Setup()
+{
+    IsAsynchronousSubscribersEnabled = true,
+    ThrowSubscriberExceptions = true
+});
 builder.Services.TryAddTransient<ICommandBus, CommandBus>();
 builder.Services.TryAddSingleton<ICommandDefinitionService, CommandDefinitionService>();
 builder.Services.TryAddTransient<IAggregateStore, AggregateStore>();

@@ -2,12 +2,14 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
+using XFrame.AggregateEventPublisher;
 using XFrame.AggregateEventPublisher.Extensions;
 using XFrame.Aggregates.Commands.Extensions;
 using XFrame.Aggregates.EventMetadata.Extentions;
 using XFrame.Aggregates.Events.Extensions;
 using XFrame.Aggregates.Queries.Extensions;
 using XFrame.DomainContainers;
+using XFrame.Jobs.Extensions;
 
 namespace Globomantics.Domain.Extensions
 {
@@ -26,7 +28,8 @@ namespace Globomantics.Domain.Extensions
                 .AddCommandHandlers(Assembly, null)
                 .AddMetadataProviders(Assembly, null)
                 .AddSubscribers(Assembly, null)
-                .AddQueryHandlers(Assembly, null);
+                .AddQueryHandlers(Assembly, null)
+                .AddJobs(typeof(DispatchToAsynchronousEventSubscribersJob));
         }
     }
 }
