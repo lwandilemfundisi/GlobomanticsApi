@@ -1,4 +1,6 @@
 ﻿using Globomantics.Api.Models;
+using Globomantics.Domain.Applications;
+using Globomantics.Domain.DomainModel.GlobomanticsModel;
 using Globomantics.Domain.DomainModel.GlobomanticsModel.Commands;
 using Microsoft.AspNetCore.Mvc;
 using XFrame.Aggregates.Commands;
@@ -10,23 +12,38 @@ namespace Globomantics.Api.Controllers
     [Route("[controller]")]
     public class GlobomanticsController : ControllerBase
     {
-        private readonly ICommandBus _commandBus;
+        private readonly IGlobomanticsService _globomanticsService;
 
         public GlobomanticsController(
-            ICommandBus commandBus)
+            IGlobomanticsService globomanticsService)
         {
-            _commandBus = commandBus;
+            _globomanticsService = globomanticsService;
         }
 
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<IActionResult> Create(CreateConferenceModelRequest request)
         {
-            var result = await _commandBus
-                .PublishAsync(
-                    request.ToCommand(), 
-                    CancellationToken.None);
+            var result = await _globomanticsService.
+                CreateConferences(
+                request.ConferenceName, 
+                request.Start, 
+                request.Location, 
+                request.AttendeeCount, 
+                CancellationToken.None);
 
             return Ok(result);
+        }
+
+        [HttpGet("Get")]
+        public async Task<IActionResult> Get(string conferenceId)
+        {
+            var result = await _globomanticsService
+                .GetConference(new ConferenceId(conferenceId), CancellationToken.None);
+
+            if(result.IsSuccess)
+                return Ok(result);
+
+            return BadRequest(result);
         }
     }
 }

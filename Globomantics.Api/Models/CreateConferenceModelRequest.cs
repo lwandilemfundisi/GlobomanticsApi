@@ -9,20 +9,5 @@ namespace Globomantics.Api.Models
         public DateTime Start { get; set; }
         public string Location { get; set; }
         public int AttendeeCount { get; set; }
-
-        #region Methods
-
-        public CreateConferenceCommand ToCommand()
-        {
-            return new CreateConferenceCommand(
-                ConferenceId.New,
-                ConferenceName,
-                Start,
-                Location,
-                AttendeeCount
-                );
-        }
-
-        #endregion
     }
 }
