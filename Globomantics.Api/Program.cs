@@ -12,6 +12,7 @@ using Globomantics.Persistence;
 using XFrame.Persistence.EFCore.Extensions;
 using XFrame.Resilience;
 using Globomantics.Domain.Applications;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +46,28 @@ builder.Services.TryAddTransient<IDispatchToEventSubscribers, DispatchToEventSub
 builder.Services.TryAddSingleton<IDomainEventFactory, DomainEventFactory>();
 builder.Services.TryAddTransient<IGlobomanticsService, GlobomanticsService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+    builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
+
+//Secure API
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.Authority = "https://dev-c7elj0wqz16veaup.us.auth0.com/";
+    options.Audience = "https://localhost:7173/";
+});
+
 builder.Services
     .ConfigureGlobomanticsDomain()
     .ConfigurePersistence<GlobomanticsContext, GlobomanticsContextProvider>();
@@ -59,6 +82,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAll");
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

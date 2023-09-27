@@ -2,12 +2,14 @@
 using Globomantics.Domain.Applications;
 using Globomantics.Domain.DomainModel.GlobomanticsModel;
 using Globomantics.Domain.DomainModel.GlobomanticsModel.Commands;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using XFrame.Aggregates.Commands;
 using XFrame.Aggregates.Queries;
 
 namespace Globomantics.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class GlobomanticsController : ControllerBase
